@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title> Azhagiya nilavava 🌙✨</title>
+    <title>Azhagiya nilavava 🌙✨</title>
     <link rel="icon" type="image/x-icon" href="https://i.loli.net/2021/06/03/lFg2V4WUcmkB98G.png">
     <meta name="language" content="en-US">
     <meta name="title" content="Student Sun">
@@ -52,7 +52,25 @@
         </div>
     </div>
 
-    <audio preload="auto" autoplay="" id="media" src="love.mp3" autoplay preload loop="loop"></audio>
+    <!-- Fixed audio autoplay -->
+    <audio id="media" src="love.mp3" preload="auto" loop></audio>
+
+    <script>
+        // Fix autoplay for audio
+        window.addEventListener("load", function () {
+            var audio = document.getElementById("media");
+            var playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // If autoplay is blocked, wait for first user click
+                    document.body.addEventListener("click", function () {
+                        audio.play();
+                    }, { once: true });
+                });
+            }
+        });
+    </script>
 
     <script>
         (function () {
@@ -214,5 +232,4 @@
     </script>
 
 </body>
-
 </html>
